@@ -3,6 +3,8 @@
 *.elf
 *.dat
 *.zip
+*.so
+*.a
 *~
 depend
 [Tt]humbs.db
