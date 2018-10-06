@@ -417,7 +417,7 @@ uint8_t S9xGetSPC7110(uint16_t Address)
 
 static uint32_t datarom_addr(uint32_t addr)
 {
-   uint32_t size = Memory.CalculatedSize - 0x100000;
+   uint32_t size = Memory.CalculatedSize - ((Memory.CalculatedSize > 0x500000) ? 0x200000 : 0x100000);
 
    while(addr >= size)
       addr -= size;

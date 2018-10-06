@@ -937,7 +937,9 @@ void S9xDeinterleaveMode2(void)
 
 void S9xDeinterleaveType2(bool reset)
 {
+#ifdef DS2_DMA
    uint32_t TmpAdj;
+#endif   
    uint8_t *tmp;
    uint8_t blocks [256];
    int32_t i;
@@ -2368,6 +2370,39 @@ void JumboLoROMMap(bool Interleaved)
    WriteProtectROM();
 }
 
+static uint32_t map_mirror (uint32_t size, uint32_t pos)
+{
+	uint32_t mask;
+   /* from bsnes */
+	if (size == 0)
+		return (0);
+	if (pos < size)
+		return (pos);
+ 	mask = 1 << 31;
+	while (!(pos & mask))
+		mask >>= 1;
+ 	if (size <= (pos & mask))
+		return (map_mirror(size, pos - mask));
+	else
+		return (mask + map_mirror(size - mask, pos - mask));
+}
+
+static void map_hirom_offset (uint32_t bank_s, uint32_t bank_e, uint32_t addr_s, uint32_t addr_e, uint32_t size, uint32_t offset)
+{
+	uint32_t c, i, p, addr;
+ 	for (c = bank_s; c <= bank_e; c++)
+	{
+		for (i = addr_s; i <= addr_e; i += 0x1000)
+		{
+			p = (c << 4) | (i >> 12);
+			addr = (c - bank_s) << 16;
+			Memory.Map[p] = Memory.ROM + offset + map_mirror(size, addr);
+			Memory.BlockIsROM[p] = true;
+			Memory.BlockIsRAM[p] = false;
+		}
+	}
+}
+
 void SPC7110HiROMMap(void)
 {
    int32_t c;
@@ -2433,6 +2468,11 @@ void SPC7110HiROMMap(void)
       Memory.BlockIsROM [0xD00 + c] = Memory.BlockIsROM [0xE00 + c] = Memory.BlockIsROM [0xF00 + c] = true;
 
    }
+
+   // Tengai Makyou Translation
+   if (strncmp((char*)&Memory.ROM [0xffc0], "HU TENGAI MAKYO ZERO ", 21) == 0 && Memory.ROMSize >= 13)
+      map_hirom_offset(0x40, 0x4f, 0x0000, 0xffff, Memory.CalculatedSize, 0x600000);
+
    S9xSpc7110Init();
 
    for (i = 0; i < (int32_t)Memory.CalculatedSize; i++)

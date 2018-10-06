@@ -103,7 +103,7 @@ void spc7110dec_write(uint8_t data)
 
 uint8_t spc7110dec_dataread(void)
 {
-   uint32_t size = Memory.CalculatedSize - 0x100000;
+   uint32_t size = Memory.CalculatedSize - ((Memory.CalculatedSize > 0x500000) ? 0x200000 : 0x100000);
    while(decomp.offset >= size)
       decomp.offset -= size;
    return Memory.ROM[0x100000 + decomp.offset++];
