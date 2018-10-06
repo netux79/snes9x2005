@@ -554,7 +554,6 @@ size_t retro_serialize_size(void)
 
 bool retro_serialize(void* data, size_t size)
 {
-   int32_t i;
    uint8_t* buffer = data;
    (void) size;
 #ifdef LAGFIX

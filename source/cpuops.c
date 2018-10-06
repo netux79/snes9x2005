@@ -2991,7 +2991,7 @@ static void Op2B(void)
 }
 
 /* PLP */
-static void Op28E1(void)
+/*static void Op28E1(void)
 {
 #ifndef SA1_OPCODES
    CPU.Cycles += TWO_CYCLES;
@@ -3005,7 +3005,7 @@ static void Op28E1(void)
       ICPU.Registers.YH = 0;
    }
    S9xFixCycles();
-}
+}*/
 
 static void Op28(void)
 {

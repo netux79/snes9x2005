@@ -2128,10 +2128,10 @@ static void DrawBackground(uint32_t BGMode, uint32_t bg, uint8_t Z1, uint8_t Z2)
    } \
     }
 
-static void DrawBGMode7Background(uint8_t* Screen, int32_t bg)
+/*static void DrawBGMode7Background(uint8_t* Screen, int32_t bg)
 {
    RENDER_BACKGROUND_MODE7(uint8_t, (uint8_t) (b & GFX.Mode7Mask))
-}
+}*/
 
 static void DrawBGMode7Background16(uint8_t* Screen, int32_t bg)
 {
@@ -2555,7 +2555,7 @@ static uint32_t Q_INTERPOLATE(uint32_t A, uint32_t B, uint32_t C, uint32_t D)
    return x + y;
 }
 
-static void DrawBGMode7Background16_i(uint8_t* Screen, int32_t bg)
+/*static void DrawBGMode7Background16_i(uint8_t* Screen, int32_t bg)
 {
    RENDER_BACKGROUND_MODE7_i(uint16_t, theColor, (ScreenColors[b & GFX.Mode7Mask]));
 }
@@ -2578,7 +2578,7 @@ static void DrawBGMode7Background16Sub_i(uint8_t* Screen, int32_t bg)
 static void DrawBGMode7Background16Sub1_2_i(uint8_t* Screen, int32_t bg)
 {
    RENDER_BACKGROUND_MODE7_i(uint16_t, *(d + GFX.DepthDelta) ? (*(d + GFX.DepthDelta) != 1 ? COLOR_SUB1_2(theColor, p[GFX.Delta]) : COLOR_SUB(theColor, GFX.FixedColour)) : theColor, (ScreenColors[b & GFX.Mode7Mask]));
-}
+}*/
 
 static void RenderScreen(uint8_t* Screen, bool sub, bool force_no_add, uint8_t D)
 {

@@ -255,7 +255,7 @@ else
 		-Wextra \
 		-pedantic \
 		-Wno-implicit-function-declaration \
-		-Wno-implicit-fallthrough \
+#		-Wno-implicit-fallthrough \
 		-Wno-sign-compare \
 		-Wno-unused-variable \
 		-Wno-unused-function \

@@ -740,7 +740,7 @@ uint8_t S9xDoHDMA(uint8_t byte)
 
 void S9xResetDMA(void)
 {
-   int32_t c, d;
+   int32_t d;
    for (d = 0; d < 8; d++)
    {
       DMA [d].TransferDirection = false;

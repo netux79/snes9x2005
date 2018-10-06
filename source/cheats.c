@@ -44,7 +44,7 @@ const char* S9xGoldFingerToRaw(const char* code, uint32_t* address, bool* sram, 
 
    for (i = 0; i < 3; i++)
    {
-      int32_t byte;
+      uint32_t byte;
       strncpy(tmp, code + 5 + i * 2, 2);
       tmp [2] = 0;
       if (sscanf(tmp, "%x", &byte) != 1)
@@ -74,7 +74,7 @@ const char* S9xGameGenieToRaw(const char* code, uint32_t* address, uint8_t* byte
    for (i = 2; i < 10; i++)
    {
       int32_t j;
-      if (islower(new_code [i]))
+      if (islower((unsigned char)new_code [i]))
          new_code [i] = toupper(new_code [i]);
       for (j = 0; j < 16; j++)
       {
